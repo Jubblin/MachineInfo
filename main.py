@@ -21,16 +21,8 @@ def find_background():
 
 def find_system_stats():
     import platform, psutil
-    system = {
-        'os': get_os(),
-        'nodename': platform.node(),
-        'interfaces': get_interfaces(),
-        'cpu': get_cpus(),
-        'memory': get_memory(),
-        'storage': get_storage(),
-        'uptime': get_uptime(),
-        'kernel': get_kernel()
-        }
+    system = dict(os=get_os(), nodename=platform.node(), interfaces=get_interfaces(), cpu=get_cpus(),
+                  memory=get_memory(), storage=get_storage(), uptime=get_uptime(), kernel=get_kernel())
     return system
 
 
@@ -57,11 +49,11 @@ def get_interfaces():
     network = {}
     ifdict = []
     from netifaces import interfaces, ifaddresses, AF_INET, gateways
-    for ifaceName in interfaces():
-        if 2 in ifaddresses(ifaceName).keys():
-            ipv4 = ifaddresses(ifaceName)[2][0]
+    for iface_name in interfaces():
+        if 2 in ifaddresses(iface_name).keys():
+            ipv4 = ifaddresses(iface_name)[2][0]
             addr = ipv4['addr'] + "/" + netmask_to_cidr(ipv4['netmask'])
-            case = {'ifaceName': ifaceName, 'inet': addr}
+            case = {'iface_name': iface_name, 'inet': addr}
             ifdict.append(case)
     get_dns()
     network = {'routes': gateways(), 'interfaces': ifdict, 'dns': get_dns() }
@@ -78,9 +70,21 @@ def get_memory():
 
 
 def get_os():
-    with open('/etc/os-release', 'r') as f:
-        uptime_seconds = f
-    return 0
+    import platform
+    os_name = platform.system()
+    if os_name == "Linux":
+        with open('/etc/os-release', 'r') as f:
+            line = f.readline()
+            if line.startswith('PRETTY_NAME='):
+                os_name = line.split('"')[1]
+
+    return os_name
+
+
+def get_platform():
+    import platform
+    r = {}
+    return
 
 
 def get_routing(gwlist):
