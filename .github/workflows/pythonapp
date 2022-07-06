@@ -1,4 +1,4 @@
-name: aws-topology app
+name: MachineInfo cli app
 
 on: [push]
 
