@@ -6,3 +6,4 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Jubblin_MachineInfo&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Jubblin_MachineInfo)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Jubblin_MachineInfo&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Jubblin_MachineInfo)
 
+[![Known Vulnerabilities](https://snyk.io/test/github/Jubblin/MachineInfo/badge.svg)]
